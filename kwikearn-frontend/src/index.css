@@ -1,0 +1,121 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #121212; /* Darker base for high-tech look */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Links */
+a {
+  font-weight: 600;
+  color: #32e0c4; /* Teal-ish accent */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #1bb89f;
+  text-decoration: underline;
+}
+
+/* Body */
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: transparent; /* Let background layers show */
+  color: inherit;
+}
+
+/* Headings */
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(50, 224, 196, 0.7);
+}
+
+/* Buttons */
+button {
+  border-radius: 12px;
+  border: 2px solid transparent;
+  padding: 0.8em 1.6em;
+  font-size: 1.1em;
+  font-weight: 600;
+  font-family: inherit;
+  background-color: #1f1f1f;
+  color: #32e0c4;
+  cursor: pointer;
+  transition: border-color 0.3s, background-color 0.3s, color 0.3s;
+  box-shadow: 0 0 10px rgba(50, 224, 196, 0.6);
+}
+button:hover {
+  border-color: #32e0c4;
+  background-color: #32e0c4;
+  color: #121212;
+  box-shadow: 0 0 18px #32e0c4;
+}
+button:focus,
+button:focus-visible {
+  outline: 3px solid #1bb89f;
+  outline-offset: 3px;
+}
+
+/* Light mode overrides */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #4ccfc9;
+  }
+  button {
+    background-color: #f0f9f8;
+    color: #0d6b63;
+    box-shadow: none;
+    border: 2px solid transparent;
+  }
+  button:hover {
+    background-color: #4ccfc9;
+    color: white;
+    border-color: #4ccfc9;
+    box-shadow: 0 0 10px #4ccfc9;
+  }
+}
+
+/* Fullscreen animated background */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #0a0f1c;
+  background-image:
+    radial-gradient(circle at top left, #0ff, transparent 25%),
+    radial-gradient(circle at bottom right, #0f8, transparent 25%),
+    repeating-linear-gradient(45deg, #0a0f1c 0, #0a0f1c 10px, #09111b 10px, #09111b 20px),
+    linear-gradient(90deg, rgba(0,255,255,0.1), rgba(0,255,0,0.1));
+  background-blend-mode: screen;
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation: background-shift 15s ease-in-out infinite;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+@keyframes background-shift {
+  0%, 100% {
+    background-position: 0% 0%, 100% 100%, 0 0, 0 0;
+  }
+  50% {
+    background-position: 25% 25%, 75% 75%, 10px 10px, 0 0;
+  }
+}
