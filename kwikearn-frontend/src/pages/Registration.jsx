@@ -7,7 +7,24 @@ export default function Registration() {
   const [showAnnouncement, setShowAnnouncement] = useState(true);
   const [showSuccess, setShowSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [selectedAvatar, setSelectedAvatar] = useState("");
 
+  const avatarOptions = [
+  "https://api.dicebear.com/7.x/adventurer/svg?seed=Olivia", // female
+  "https://api.dicebear.com/7.x/adventurer/svg?seed=Leo",     // male
+  "https://api.dicebear.com/7.x/adventurer-neutral/svg?seed=Zara", // neutral
+  "https://api.dicebear.com/7.x/micah/svg?seed=Aisha",         // female
+  "https://api.dicebear.com/7.x/big-smile/svg?seed=Chris",     // male
+  "https://api.dicebear.com/7.x/big-ears/svg?seed=Nina",       // female
+  "https://api.dicebear.com/7.x/bottts/svg?seed=Max",          // fun neutral
+];
+  const steps = [
+  { icon: "💰", text: "Pay ₵100 one-time to activate your account." },
+  { icon: "🔑", text: "Receive a unique referral code after signup." },
+  { icon: "💵", text: "Earn ₵20 whenever someone joins using your code." },
+  { icon: "♾️", text: "Refer unlimited people — earn ₵20 for each." },
+  { icon: "🚀", text: "Everyone you refer can also start earning by sharing their own code." },
+];
   const [country, setCountry] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("Bitcoin");
 
@@ -197,6 +214,41 @@ export default function Registration() {
               <h2 id="register-title" className="form-title">
                 Register to KwikLoom
               </h2>
+              <div className="how-it-works">
+               <h3>Here’s how it works:</h3>
+               <ul>
+                 <ul className="steps-list">
+  <li><span className="step-icon">💰</span> Pay ₵100 one-time to activate your account.</li>
+  <li><span className="step-icon">🔑</span> Receive a unique referral code after signup.</li>
+  <li><span className="step-icon">💵</span> Earn ₵20 whenever someone joins using your code.</li>
+  <li><span className="step-icon">♾️</span> Refer unlimited people — earn ₵20 for each.</li>
+  <li><span className="step-icon">🚀</span> Everyone you refer can also start earning by sharing their own code.</li>
+</ul>
+
+               </ul>
+            </div>
+
+              <div className="auth-buttons">
+  <button
+    onClick={() => setStep("email")}
+    className="email-auth-btn"
+  >
+    📧 Sign in with Email
+  </button>
+
+  <button
+    onClick={() => signInWithPopup(auth, provider)}
+    className="google-auth-btn"
+  >
+    <img 
+  src="https://developers.google.com/identity/images/g-logo.png"
+  alt="Google"
+  style={{ width: 24, height: 24, marginRight: 8 }}
+/>
+    Sign in with Google
+  </button>
+</div>
+
               <form onSubmit={handleInitialSubmit} className="form">
                 {/* Dropdowns */}
                 <label htmlFor="country-select" className="sr-only">
@@ -321,6 +373,22 @@ export default function Registration() {
                     />
                   </div>
                 )}
+   <div className="avatar-grid">
+  <p className="avatar-heading">Choose Your Avatar</p>
+  <div className="grid grid-cols-3 gap-4 justify-center">
+    {avatarOptions.map((url) => (
+      <img
+        key={url}
+        src={url}
+        alt="Avatar option"
+        className={`w-16 h-16 rounded-full border-4 cursor-pointer transition-transform ${
+          selectedAvatar === url ? "border-green-400 scale-110" : "border-transparent"
+        }`}
+        onClick={() => setSelectedAvatar(url)}
+      />
+    ))}
+  </div>
+</div>
 
                 <button type="submit" className="btn-primary">
                   I’ve Paid – Continue
@@ -359,10 +427,58 @@ export default function Registration() {
               </form>
             </>
           )}
-        </main>
-      </div>
+        </main>{step === "email" && (
+  <>
+    <h2 className="form-title">Sign in with Email</h2>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        alert("This will sign in with email!");
+        // Later: handleEmailLogin(email, password)
+      }}
+      className="form"
+    >
+      <input
+        type="email"
+        placeholder="Enter your email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+        className="input-field"
+      />
 
-      {/* Styles */}
+      <input
+        type={showPassword ? "text" : "password"}
+        placeholder="Enter your password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+        className="input-field"
+      />
+
+      <button type="submit" className="btn-primary">
+        Sign In
+      </button>
+
+      <p style={{ marginTop: "1rem" }}>
+        Don’t have an account?{" "}
+        <a
+          href="#back"
+          onClick={(e) => {
+            e.preventDefault();
+            setStep(1); // Go back to welcome screen
+          }}
+          style={{ color: "#0fd3b0", textDecoration: "underline" }}
+        >
+          Register here
+        </a>
+      </p>
+    </form>
+  </>
+)}
+
+      </div>
+{/* Styles */}
       <style jsx>{`
         :root {
           font-family: "Sora", system-ui, sans-serif;
@@ -778,6 +894,7 @@ export default function Registration() {
           white-space: nowrap !important;
         }
       `}</style>
+
     </>
   );
 }
