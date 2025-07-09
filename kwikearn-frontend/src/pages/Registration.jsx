@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../firebase";
 import "@fontsource/sora";
 import "@fontsource/inter";
 
